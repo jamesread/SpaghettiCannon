@@ -60,7 +60,7 @@ dockers:
       - config.yaml
 
 docker_manifests:
-  - name_template: ghcr.io/jamesread/spaghetticanon:latest
+  - name_template: ghcr.io/jamesread/spaghetticannon:latest
     image_templates:
       - ghcr.io/jamesread/spaghetticannon:{{ .Version }}-amd64
 

@@ -67,11 +67,3 @@ jobs:
         with:
           name: "SpaghettiCannon-${{ github.ref_name }}"
           path: dist/SpaghettiCannon*.*
-
-      - name: Archive integration tests
-        uses: actions/upload-artifact@v4.3.1
-        with:
-          name: integration-tests
-          path: |
-            integration-tests
-            !integration-tests/node_modules
