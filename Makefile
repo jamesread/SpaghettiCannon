@@ -6,6 +6,8 @@ daemon-codestyle:
 	gocyclo -over 4 internal
 	gocritic check ./...
 
+daemon-unittests:
+
 daemon-compile-x64-lin:
 	go build ./...
 

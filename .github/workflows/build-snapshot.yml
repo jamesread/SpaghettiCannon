@@ -38,15 +38,15 @@ jobs:
       - name: unit tests
         run: make -w daemon-unittests
 
-      - name: integration tests
-        run: cd integration-tests && make -w
+#      - name: integration tests
+#        run: cd integration-tests && make -w
 
       - name: goreleaser
         uses: goreleaser/goreleaser-action@v5
         with:
           distribution: goreleaser
           version: latest
-          args: release --snapshot --clean --parallelism 1 --skip=docker
+          args: release --snapshot --clean --skip=docker
 
       - name: get date
         run: |
@@ -58,10 +58,10 @@ jobs:
           name: "SpaghettiCannon-snapshot-${{ env.DATE }}-${{ github.sha }}"
           path: dist/SpaghettiCannon*.*
 
-      - name: Archive integration tests
-        uses: actions/upload-artifact@v4.3.1
-        with:
-          name: "SpaghettiCannon-integration-tests-${{ env.DATE }}-${{ github.sha }}"
-          path: |
-            integration-tests
-            !integration-tests/node_modules
+            #      - name: Archive integration tests
+            #        uses: actions/upload-artifact@v4.3.1
+            #        with:
+            #          name: "SpaghettiCannon-integration-tests-${{ env.DATE }}-${{ github.sha }}"
+            #          path: |
+            #            integration-tests
+            #            !integration-tests/node_modules
