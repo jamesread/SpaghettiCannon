@@ -1,0 +1,77 @@
+project_name: SpaghettiCannon
+before:
+  hooks:
+    - go mod download
+
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+
+    goarch:
+      - amd64
+
+    main: main.go
+
+    ldflags:
+      - -s -w -X main.version={{.Version}} -X main.commit={{.ShortCommit}} -X main.date={{ .CommitDate }}
+
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ .Branch }}-{{ .ShortCommit }}"
+changelog:
+  sort: asc
+  groups:
+    - title: 'Security'
+      regexp: '^.*?security(\([[:word:]]+\))??!?:.+$'
+      order: 0
+    - title: 'Features'
+      regexp: '^.*?feature(\([[:word:]]+\))??!?:.+$'
+      order: 1
+    - title: 'Bug fixes'
+      regexp: '^.*?bugfix(\([[:word:]]+\))??!?:.+$'
+      order: 2
+    - title: Others
+      order: 999
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - '^cicd:'
+      - '^refactor:'
+
+archives: []
+
+dockers:
+  - image_templates:
+      - "ghcr.io/jamesread/spaghetticannon:{{ .Tag }}-amd64"
+    dockerfile: Dockerfile
+    goos: linux
+    goarch: amd64
+    skip_push: false
+    build_flag_templates:
+      - "--platform=linux/amd64"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Tag}}"
+    extra_files:
+      - webui
+      - config.yaml
+
+docker_manifests:
+  - name_template: ghcr.io/jamesread/spaghetticanon:latest
+    image_templates:
+      - ghcr.io/jamesread/spaghetticannon:{{ .Version }}-amd64
+
+release:
+  footer: |
+    ## Container images (from GitHub)
+
+    - `docker pull ghcr.io/jamesread/spaghetticannon:{{ .Version }}`
+
+    ## Upgrade warnings, or breaking changes
+
+    - No such issues between the last release and this version.
+
+    Thanks for your interest in SpaghettiCannon!

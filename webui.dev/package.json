@@ -1,0 +1,18 @@
+{
+  "name": "spaghetticannon-webui",
+  "version": "1.0.0",
+  "description": "The WebUI for SpaghettiCannon",
+  "source": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jamesread",
+  "license": "ISC",
+  "dependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-standard": "^17.1.0",
+    "parcel": "^2.12.0",
+    "stylelint": "^16.2.1",
+    "stylelint-config-standard": "^36.0.0"
+  }
+}

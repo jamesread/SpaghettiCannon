@@ -1,0 +1,34 @@
+---
+name: "Codestyle checks"
+
+on:
+  push:
+    paths:
+      - 'cmd/**'
+      - 'internal/**'
+      - 'webui.dev/**'
+      - 'integration-tests/**'
+      - 'SpaghettiCannon.proto'
+
+
+jobs:
+  codestyle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '^1.18.0'
+          cache: true
+
+      - name: deps
+        run: make -w grpc
+
+      - name: daemon
+        run: make -w daemon-codestyle
+
+      - name: webui
+        run: make -w webui-codestyle

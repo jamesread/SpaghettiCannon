@@ -1,0 +1,9 @@
+**/*.swo
+**/*.swp
+/webui
+/SpaghettiCannon
+/webui.dev/node_modules/
+/webui.dev/.parcel-cache/
+gen/
+tmp/
+/dist
