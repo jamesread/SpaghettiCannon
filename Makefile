@@ -1,4 +1,4 @@
-compile: daemon-x64-lin
+compile: daemon-compile-x64-lin
 
 daemon-codestyle:
 	go fmt ./...
@@ -6,7 +6,7 @@ daemon-codestyle:
 	gocyclo -over 4 internal
 	gocritic check ./...
 
-daemon-x64-lin:
+daemon-compile-x64-lin:
 	go build ./...
 
 grpc: go-tools
