@@ -17,6 +17,11 @@ grpc: go-tools
 protoc:
 	protoc --go_out=. --go-grpc_out=. --grpc-gateway_out=. -I .:/usr/include/ SpaghettiCannon.proto
 
+webui-codestyle:
+	cd webui.dev && npm install
+	cd webui.dev && ./node_modules/.bin/eslint main.ts ts/*
+	cd webui.dev && ./node_modules/.bin/stylelint style.css
+
 webui-dist:
 	rm -rf webui webui.dev/dist
 	cd webui.dev && npm install
