@@ -16,8 +16,8 @@ func DefaultConfig() *Config {
 		WebUIDir:                        "./webui/",
 		ExternalRestAddress:             ".",
 		ListenAddressSingleHTTPFrontend: "0.0.0.0:4337",
-		ListenAddressGrpc:               "0.0.0.0:4338",
-		ListenAddressRest:               "0.0.0.0:4339",
-		ListenAddressWebUI:              "0.0.0.0:4340",
+		ListenAddressGrpc:               "localhost:4338",
+		ListenAddressRest:               "localhost:4339",
+		ListenAddressWebUI:              "localhost:4340",
 	}
 }

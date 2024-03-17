@@ -26,10 +26,10 @@ func findWebuiDir() string {
 	directoriesToSearch := []string{
 		cfg.WebUIDir,
 		"../webui/",
+		"./webui/",
 		"/webui/",
 		"/usr/share/SpaghettiCannon/webui/",
 		"/var/www/SpaghettiCannon/",
-		"/var/www/olivetin/",
 		"/etc/SpaghettiCannon/webui/",
 	}
 

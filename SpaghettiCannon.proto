@@ -7,7 +7,9 @@ import "google/api/httpbody.proto";
 
 message GetReadyzRequest {}
 
-message GetReadyzResponse {}
+message GetReadyzResponse {
+	bool is_ready = 1;
+}
 
 service SpaghettiCannonApiService {
 	rpc GetReadyz(GetReadyzRequest) returns (GetReadyzResponse) {

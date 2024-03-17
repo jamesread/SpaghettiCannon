@@ -1,4 +1,6 @@
-<html>
+<!DOCTYPE html>
+
+<html lang = "en">
 	<head>
 		<meta name = "viewport" content = "width=device-width, initial-scale=1.0">
 
@@ -10,20 +12,35 @@
 
 	<body>
 		<header>
-			<img src = "SpaghettiCannonLogo.png" style = "width: 128px" alt = "Logo" />
-			<h1>
-				SpaghettiCannon
-			</h1>
+			<div class = "pagewidth">
+				<img id = "logo" src = "SpaghettiCannonLogo.png" style = "width: 128px" alt = "Logo" />
+				<h1>
+					SpaghettiCannon
+				</h1>
+
+				<nav>
+					<iconify-icon class = "active" icon="healthicons:weight-outline"></iconify-icon>
+					<iconify-icon icon="healthicons:exercise-bicycle-outline"></iconify-icon>
+					<iconify-icon icon="healthicons:mental-disorders-outline"></iconify-icon>
+					<iconify-icon icon="healthicons:blood-drop-outline"></iconify-icon>
+					<iconify-icon icon="healthicons:unhealthy-food-outline"></iconify-icon>
+				</nav>
+			</div>
 		</header>
 
 		<section class = "update">
-			update
+			<div class = "pagewidth">
+				<input name = "update" placeholder = "Enter weight update here" />
+			</div>
 		</section>
 
-		<section class = "stats">
-			stats
+		<section class = "history">
+			<div class = "pagewidth">
+			history
+			</div>
 		</section>
 
-		<script src = "main.ts"></script>
+		<script src = "lib/iconify-icon-2.0.0.min.js"></script>
+		<script type = "module" src = "main.ts"></script>
 	</body>
 </html>
