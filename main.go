@@ -1,15 +1,15 @@
 package main
 
 import (
-	log "github.com/sirupsen/logrus"
-	"github.com/jamesread/SpaghettiCannon/internal/httpservers"
 	"github.com/jamesread/SpaghettiCannon/internal/config"
+	"github.com/jamesread/SpaghettiCannon/internal/httpservers"
+	log "github.com/sirupsen/logrus"
 )
 
 var (
 	version string
-	commit string
-	date string
+	commit  string
+	date    string
 )
 
 func main() {

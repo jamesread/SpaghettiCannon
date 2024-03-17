@@ -50,8 +50,8 @@ func findWebuiDir() string {
 
 func generateWebUISettings(w http.ResponseWriter, r *http.Request) {
 	jsonRet, _ := json.Marshal(webUISettings{
-		Rest:                   cfg.ExternalRestAddress + "/api/",
-		ShowFooter:             cfg.ShowFooter,
+		Rest:       cfg.ExternalRestAddress + "/api/",
+		ShowFooter: cfg.ShowFooter,
 	})
 
 	_, err := w.Write([]byte(jsonRet))

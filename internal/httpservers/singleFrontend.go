@@ -37,10 +37,10 @@ func StartSingleHTTPFrontend(cfg *config.Config) {
 	})
 
 	/*
-	mux.HandleFunc("/websocket", func(w http.ResponseWriter, r *http.Request) {
-		log.Debugf("ws  req: %q", r.URL)
-		websocket.HandleWebsocket(w, r)
-	})
+		mux.HandleFunc("/websocket", func(w http.ResponseWriter, r *http.Request) {
+			log.Debugf("ws  req: %q", r.URL)
+			websocket.HandleWebsocket(w, r)
+		})
 	*/
 
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {

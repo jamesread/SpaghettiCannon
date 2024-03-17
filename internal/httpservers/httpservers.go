@@ -1,7 +1,7 @@
 package httpservers
 
 import (
-//	log "github.com/sirupsen/logrus"
+	//	log "github.com/sirupsen/logrus"
 	"github.com/jamesread/SpaghettiCannon/internal/config"
 )
 
@@ -12,5 +12,3 @@ func StartServers(cfg *config.Config) {
 
 	startRestAPIServer(cfg)
 }
-
-
