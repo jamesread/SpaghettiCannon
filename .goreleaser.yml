@@ -11,6 +11,7 @@ builds:
 
     goarch:
       - amd64
+      - arm64
 
     main: main.go
 
@@ -59,10 +60,26 @@ dockers:
       - webui
       - config.yaml
 
+  - image_templates:
+      - "ghcr.io/jamesread/spaghetticannon:{{ .Tag }}-arm64"
+    dockerfile: Dockerfile
+    goos: linux
+    goarch: arm64
+    skip_push: false
+    build_flag_templates:
+      - "--platform=linux/arm64"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Tag}}"
+    extra_files:
+      - webui
+      - config.yaml
+
+
 docker_manifests:
   - name_template: ghcr.io/jamesread/spaghetticannon:latest
     image_templates:
       - ghcr.io/jamesread/spaghetticannon:{{ .Version }}-amd64
+      - ghcr.io/jamesread/spaghetticannon:{{ .Version }}-arm64
 
 release:
   footer: |
