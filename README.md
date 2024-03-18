@@ -1,6 +1,8 @@
 # SpaghettiCannon
 
-![Logo](logo.png)
+<img src = "https://raw.githubusercontent.com/jamesread/SpaghettiCannon/main/logo.png" width = "160px" alt = "project logo" align = "right" />
+
+[![Discord](https://img.shields.io/discord/846737624960860180?label=Discord%20Server)](https://discord.gg/jhYWWpNJ3v)
 
 **A personal quality of life tracker.**
 
