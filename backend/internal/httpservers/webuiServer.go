@@ -25,12 +25,12 @@ type webUISettings struct {
 func findWebuiDir() string {
 	directoriesToSearch := []string{
 		cfg.WebUIDir,
-		"../webui/",
-		"./webui/",
-		"/webui/",
-		"/usr/share/SpaghettiCannon/webui/",
+		"../frontend/dist/",
+		"../frontend/",
+		"/frontend/",
+		"/usr/share/SpaghettiCannon/frontend/",
 		"/var/www/SpaghettiCannon/",
-		"/etc/SpaghettiCannon/webui/",
+		"/etc/SpaghettiCannon/frontend/",
 	}
 
 	for _, dir := range directoriesToSearch {

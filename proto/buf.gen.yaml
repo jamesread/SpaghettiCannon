@@ -1,0 +1,21 @@
+version: v2
+plugins:
+  - local: protoc-gen-go
+    out: ../backend/gen/proto/
+    opt: paths=source_relative
+
+  - local: protoc-gen-connect-go
+    out: ../backend/gen/proto/
+    opt: paths=source_relative
+
+    #  - local: protoc-gen-grpc-gateway
+    #    out: ../backend/gen/grpc/
+    #    opt: paths=source_relative
+
+  - local: protoc-gen-es
+    out: ../frontend/ts/proto/
+    opt: target=ts
+
+  - local: protoc-gen-connect-es
+    opt: target=ts
+    out: ../frontend/ts/proto/

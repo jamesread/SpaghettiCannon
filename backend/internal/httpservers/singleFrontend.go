@@ -33,7 +33,8 @@ func StartSingleHTTPFrontend(cfg *config.Config) {
 
 	mux.HandleFunc("/api/", func(w http.ResponseWriter, r *http.Request) {
 		log.Debugf("api req: %q", r.URL)
-		apiProxy.ServeHTTP(w, r)
+
+		http.StripPrefix("/api", apiProxy).ServeHTTP(w, r)
 	})
 
 	/*

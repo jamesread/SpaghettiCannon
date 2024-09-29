@@ -1,7 +1,25 @@
 import * as d3 from 'd3'
 
+import { createPromiseClient } from "@connectrpc/connect";
+import { SpaghettiCannonApiService } from "./ts/proto/SpaghettiCannon_connect"
+
+import { createApp } from 'vue'
+import MagicButton from './vue/MagicButton.vue'
+import UpdateBox from './vue/UpdateBox.vue'
+
 function main (): void {
   document.querySelector('section.history').querySelector('.pagewidth').appendChild(createGraph())
+  
+  createApp(MagicButton).mount('#magicButton')
+
+  createApp(UpdateBox).mount('#updateBox')
+
+  window.client = createPromiseClient(SpaghettiCannonApiService, window.location.origin + '/api')
+
+  const res = await window.client.getReadyz()
+
+  console.log(res);
+
 }
 
 function createGraph (): Node {

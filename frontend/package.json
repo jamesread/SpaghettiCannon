@@ -1,0 +1,39 @@
+{
+  "name": "spaghetticannon-webui",
+  "version": "1.0.0",
+  "description": "The WebUI for SpaghettiCannon",
+  "source": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jamesread",
+  "license": "ISC",
+  "devDependencies": {
+    "@bufbuild/buf": "^1.42.0",
+    "@bufbuild/protoc-gen-es": "^2.1.0",
+    "@connectrpc/protoc-gen-connect-es": "^1.5.0",
+    "@parcel/transformer-pug": "2.12.0",
+    "@parcel/transformer-vue": "2.12.0",
+    "@typescript-eslint/eslint-plugin": "^8.7.0",
+    "d3": "^7.9.0",
+    "eslint": "^8.57.1",
+    "eslint-plugin-import": "^2.30.0",
+    "eslint-plugin-n": "^17.10.3",
+    "eslint-plugin-promise": "^7.1.0",
+    "parcel": "^2.12.0",
+    "stylelint": "^16.9.0",
+    "stylelint-config-standard": "^36.0.1",
+    "typescript": "^5.6.2"
+  },
+  "dependencies": {
+    "@bufbuild/protobuf": "1.10.0",
+    "@connectrpc/connect": "^1.5.0",
+    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/js": "^9.11.1",
+    "eslint-config-love": "^83.0.0",
+    "globals": "^15.9.0",
+    "srcset": "^5.0.1",
+    "svgo": "^3.3.2",
+    "vue": "^3.5.10"
+  }
+}

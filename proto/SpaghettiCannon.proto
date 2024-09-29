@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package SpaghettiCannon.v1;
+
+option go_package = "github.com/jamesread/SpaghettiCannon/gen/proto;spagv1";
+
+message GetReadyzRequest {}
+
+message GetReadyzResponse {
+	bool is_ready = 1;
+}
+
+service SpaghettiCannonApiService {
+	rpc GetReadyz(GetReadyzRequest) returns (GetReadyzResponse) {}
+}
