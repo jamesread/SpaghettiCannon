@@ -13,7 +13,9 @@
 
 	<body>
 		header
-				h1 SpaghettiCannon
+				h1 SC
+					br
+					img(src = "SpaghettiCannonLogo.png" width = "50px")
 
 				nav
 					- 
@@ -22,7 +24,7 @@
 							"heart-outline": "Heart",
 							"mental-disorders-outline": "Mood",
 							"exercise-bicycle-outline": "Exercise",
-							"blood-drop-outline": "Blood Pressure",
+							"blood-drop-outline": "BP",
 							"unhealthy-food-outline": "Junk food",
 						}
 
@@ -31,15 +33,10 @@
 							a(href = "#")
 								span.icon
 									iconify-icon(icon = "healthicons:" + icon)
+								span.iconTitle
+									= title
 
 		<main>
-			<section>
-				fieldset
-					button Boring Button
-
-					slot#magicButton
-			</section>
-
 			<section class = "update">
 				<div class = "pagewidth">
 					slot#updateBox
