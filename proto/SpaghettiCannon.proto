@@ -10,6 +10,15 @@ message GetReadyzResponse {
 	bool is_ready = 1;
 }
 
+message AddUpdateRequest {
+  string content = 1;
+}
+
+message AddUpdateResponse {
+}
+
 service SpaghettiCannonApiService {
 	rpc GetReadyz(GetReadyzRequest) returns (GetReadyzResponse) {}
+
+  rpc AddUpdate(AddUpdateRequest) returns (AddUpdateResponse) {}
 }

@@ -1,6 +1,7 @@
 import * as d3 from 'd3'
 
 import { createPromiseClient } from "@connectrpc/connect";
+import { createConnectTransport } from "@connectrpc/connect-web";
 import { SpaghettiCannonApiService } from "./ts/proto/SpaghettiCannon_connect"
 
 import { createApp } from 'vue'
@@ -10,17 +11,27 @@ import UpdateBox from './vue/UpdateBox.vue'
 function main (): void {
   document.querySelector('section.history').querySelector('.pagewidth').appendChild(createGraph())
   
-  createApp(MagicButton).mount('#magicButton')
+  createApp(MagicButton).mount('#magicButton') 
 
   createApp(UpdateBox).mount('#updateBox')
 
-  window.client = createPromiseClient(SpaghettiCannonApiService, window.location.origin + '/api')
+  const transport = createConnectTransport({
+    baseUrl: 'http://localhost:4337/api/'
+  })
 
-  const res = await window.client.getReadyz()
+  window.client = createPromiseClient(SpaghettiCannonApiService, transport)
 
-  console.log(res);
-
+  checkReady()
 }
+
+async function checkReady (): void {
+  const res = await window.client.getReadyz({
+    name: "Batman",
+  })
+
+  console.log("readyz", res);
+}
+
 
 function createGraph (): Node {
   const width = 640

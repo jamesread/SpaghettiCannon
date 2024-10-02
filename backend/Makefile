@@ -1,5 +1,5 @@
 compile:
-	go build ./...
+	go build
 
 codestyle:
 	go fmt ./...

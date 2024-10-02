@@ -17,5 +17,7 @@ func main() {
 
 	cfg := config.DefaultConfig()
 
+	config.LoadConfig(cfg)
+
 	httpservers.StartServers(cfg)
 }

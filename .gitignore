@@ -7,3 +7,4 @@
 gen/
 tmp/
 /dist
+config.yaml
