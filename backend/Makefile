@@ -1,3 +1,5 @@
+cicd: go-tools compile unittests
+
 compile:
 	go build
 
