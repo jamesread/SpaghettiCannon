@@ -1,4 +1,4 @@
-cicd:
+protoc:
 	pnpm i -g @bufbuild/protoc-gen-es
 	pnpm i -g @connectrpc/protoc-gen-connect-es
 
