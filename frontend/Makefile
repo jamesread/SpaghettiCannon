@@ -1,3 +1,7 @@
+cicd:
+	pnpm i -g @bufbuild/protoc-gen-es
+	pnpm i -g @connectrpc/protoc-gen-connect-es
+
 webui-codestyle:
 	pnpm install
 	npx eslint .
