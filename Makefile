@@ -1,14 +1,14 @@
 default: protoc frontend backend
 
 frontend:
-	$(MAKE) -C frontend
+	$(MAKE) -C frontend -w
 
 backend:
-	$(MAKE) -C backend
+	$(MAKE) -C backend -w
 
 protoc:
-	$(MAKE) -c backend go-tools
-	$(MAKE) -C proto
+	$(MAKE) -C backend -w go-tools
+	$(MAKE) -C proto -w
 
 
 .PHONY: default frontend backend protoc
