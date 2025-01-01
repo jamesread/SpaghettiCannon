@@ -1,6 +1,8 @@
 project_name: SpaghettiCannon
+version: 2
 before:
   hooks:
+    - go generate ./...
     - go mod download
 
 builds:
@@ -15,13 +17,15 @@ builds:
 
     main: main.go
 
+    dir: backend
+
     ldflags:
       - -s -w -X main.version={{.Version}} -X main.commit={{.ShortCommit}} -X main.date={{ .CommitDate }}
 
 checksum:
   name_template: 'checksums.txt'
 snapshot:
-  name_template: "{{ .Branch }}-{{ .ShortCommit }}"
+  version_template: "{{ .Branch }}-{{ .ShortCommit }}"
 changelog:
   sort: asc
   groups:
@@ -57,7 +61,7 @@ dockers:
       - "--label=org.opencontainers.image.revision={{.FullCommit}}"
       - "--label=org.opencontainers.image.version={{.Tag}}"
     extra_files:
-      - webui
+      - frontend
       - config.yaml
 
   - image_templates:

@@ -1,3 +1,3 @@
-//go:generate cd .. && make proto
+//go:generate make -C ../ -w protoc
 
 package main
