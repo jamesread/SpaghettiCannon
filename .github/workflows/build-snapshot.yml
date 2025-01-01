@@ -38,17 +38,14 @@ jobs:
           go-version: '^1.18.0'
           cache: true
 
-      - name: grpc
-        run: make -w grpc
+      - name: make protoc
+        run: make -w protoc
 
-      - name: make daemon
-        run: make -w daemon-compile-x64-lin
+      - name: make backend
+        run: make -w backend
 
-      - name: make webui
-        run: make -w webui-dist
-
-      - name: unit tests
-        run: make -w daemon-unittests
+      - name: make frontend
+        run: make -w frontend
 
 #      - name: integration tests
 #        run: cd integration-tests && make -w
