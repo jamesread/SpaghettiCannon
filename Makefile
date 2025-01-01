@@ -7,6 +7,7 @@ backend:
 	$(MAKE) -C backend
 
 protoc:
+	$(MAKE) -c backend go-tools
 	$(MAKE) -C proto
 
 
