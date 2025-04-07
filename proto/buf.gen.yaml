@@ -12,10 +12,6 @@ plugins:
     #    out: ../backend/gen/grpc/
     #    opt: paths=source_relative
 
-  - local: protoc-gen-es
+  - remote: buf.build/bufbuild/es
     out: ../frontend/ts/proto/
     opt: target=ts
-
-  - local: protoc-gen-connect-es
-    opt: target=ts
-    out: ../frontend/ts/proto/
