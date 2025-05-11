@@ -1,9 +1,5 @@
 project_name: SpaghettiCannon
 version: 2
-before:
-  hooks:
-    - go generate ./...
-    - go mod download
 
 builds:
   - env:
@@ -17,7 +13,7 @@ builds:
 
     main: main.go
 
-    dir: backend
+    dir: service
 
     ldflags:
       - >
