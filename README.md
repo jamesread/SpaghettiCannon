@@ -1,5 +1,5 @@
 <div align = "center">
-	<img alt = "project logo" src = "logo.png" width = "128" />
+	<img alt = "project logo" src = "var/logo.png" width = "128" />
 	<h1>SpaghettiCannon</h1>
 	<p>A personal quality of life tracker.</p>
 
