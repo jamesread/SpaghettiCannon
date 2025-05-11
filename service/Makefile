@@ -1,4 +1,5 @@
 cicd: go-tools compile unittests
+	rm SpaghettiCannon
 
 compile:
 	go build
