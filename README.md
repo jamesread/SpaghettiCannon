@@ -5,6 +5,7 @@
 
 [![Maturity](https://img.shields.io/badge/maturity-Sandbox-yellow)](#none)
 [![Discord](https://img.shields.io/discord/846737624960860180?label=Discord%20Server)](https://discord.gg/jhYWWpNJ3v)
+</div>
 
 Track your weight, mood, food, exercise, periods, in a self-hosted way, while keeping your own data.
 

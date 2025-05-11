@@ -42,6 +42,11 @@ jobs:
           cache-dependency-path: service/go.mod
           cache: true
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4.1.0
+        with:
+          package_json_file: 'frontend/package.json'
+
       - name: make frontend
         run: make -w frontend
 
