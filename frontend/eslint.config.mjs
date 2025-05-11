@@ -5,6 +5,11 @@ export default [
   js.configs.recommended,
   ...ts.configs.recommended,
   {
-    ignores: ["lib/*", "ts/proto/*", "dist/*"],
+    ignores: [
+      "lib/*",
+      "ts/proto/*",
+      "resources/stylesheets/BrightAndSimpleTheme/*",
+      "dist/*"
+    ],
   }
 ];

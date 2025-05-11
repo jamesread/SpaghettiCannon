@@ -4,9 +4,11 @@ import { createClient } from "@connectrpc/connect";
 import { createConnectTransport } from "@connectrpc/connect-web";
 import { SpaghettiCannonApiService } from "./ts/proto/SpaghettiCannon/clientapi/v1/clientapi_pb"
 
+/**
 import { createApp } from 'vue'
 import MagicButton from './vue/MagicButton.vue'
 import UpdateBox from './vue/UpdateBox.vue'
+*/
 
 function main (): void {
   document.querySelector('#history').appendChild(createGraph())
@@ -48,12 +50,13 @@ async function checkReady (): void {
   }
 
   for (const [icon, title] of Object.entries(icons)) {
-	  let li = document.createElement('li')
+	  const li = document.createElement('li')
 
-	  let a = document.createElement('a')
+	  const a = document.createElement('a')
+	  a.title = title
 	  a.classList.add('icon');
 
-	  let domIcon = document.createElement('iconify-icon')
+	  const domIcon = document.createElement('iconify-icon')
 	  domIcon.setAttribute('icon', 'healthicons:' + icon)
 	  a.appendChild(domIcon)
 
