@@ -1,10 +1,12 @@
 ---
 name: Feature request
-about: Suggest an idea for this project
-title: ''
-labels: enhancement
+description: Suggest an idea for something new
+title: 'Give your feature request a title'
+labels: ["type: feature-request", "waiting-on-developer"]
+labels:
+  - "type: feature-request"
+  - "waiting-on-developer"
 assignees: ''
-
 ---
 
 **Is your feature request related to a problem? Please describe.**

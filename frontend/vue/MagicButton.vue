@@ -1,8 +1,9 @@
 <template>
-  <button @click="onClick"> {{ state.count }}</button>
+	<button>foo</button>
 </template>
 
 <script>
+	/**
   import { reactive, computed } from 'vue'
 
   export default {
@@ -21,6 +22,7 @@
       }
     }
   }
+  **/
 </script>
 
 <style lang = "css" scoped>

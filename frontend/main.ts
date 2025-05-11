@@ -1,25 +1,32 @@
 import * as d3 from 'd3'
 
-import { createPromiseClient } from "@connectrpc/connect";
+import { createClient } from "@connectrpc/connect";
 import { createConnectTransport } from "@connectrpc/connect-web";
-import { SpaghettiCannonApiService } from "./ts/proto/SpaghettiCannon_connect"
+import { SpaghettiCannonApiService } from "./ts/proto/SpaghettiCannon/clientapi/v1/clientapi_pb"
 
 import { createApp } from 'vue'
 import MagicButton from './vue/MagicButton.vue'
 import UpdateBox from './vue/UpdateBox.vue'
 
 function main (): void {
-  document.querySelector('section.history').querySelector('.pagewidth').appendChild(createGraph())
-  
-  createApp(MagicButton).mount('#magicButton') 
+  document.querySelector('#history').appendChild(createGraph())
+
+  /**
+  createApp(MagicButton).mount('#magicButton')
 
   createApp(UpdateBox).mount('#updateBox')
+  */
 
+  let baseUrl = window.location.href + 'api/'
+
+  if (window.location.port == '5173') {
+	  baseUrl = 'http://localhost:4337/api/'
+  }
   const transport = createConnectTransport({
-    baseUrl: 'http://localhost:4337/api/'
+    baseUrl: baseUrl
   })
 
-  window.client = createPromiseClient(SpaghettiCannonApiService, transport)
+  window.client = createClient(SpaghettiCannonApiService, transport)
 
   checkReady()
 }
@@ -28,6 +35,32 @@ async function checkReady (): void {
   const res = await window.client.getReadyz({
     name: "Batman",
   })
+
+  document.getElementById('version').innerText = res.version
+
+  const icons = {
+		"weight-outline": "Weight",
+		"heart-outline": "Heart",
+		"mental-disorders-outline": "Mood",
+		"exercise-bicycle-outline": "Exercise",
+		"blood-drop-outline": "BP",
+		"unhealthy-food-outline": "Food",
+  }
+
+  for (const [icon, title] of Object.entries(icons)) {
+	  let li = document.createElement('li')
+
+	  let a = document.createElement('a')
+	  a.classList.add('icon');
+
+	  let domIcon = document.createElement('iconify-icon')
+	  domIcon.setAttribute('icon', 'healthicons:' + icon)
+	  a.appendChild(domIcon)
+
+	  li.appendChild(a)
+
+	  document.querySelector('nav').appendChild(li)
+  }
 
   console.log("readyz", res);
 }

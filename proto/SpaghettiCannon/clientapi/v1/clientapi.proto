@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package SpaghettiCannon.clientapi.v1;
+
+option go_package = "github.com/jamesread/SpaghettiCannon/gen/SpaghettiCannon/clientapi/v1;spagv1";
+
+message GetReadyzRequest {}
+
+message GetReadyzResponse {
+	bool is_ready = 1;
+	string version = 2;
+}
+
+message AddUpdateRequest {
+  string content = 1;
+}
+
+message AddUpdateResponse {
+}
+
+service SpaghettiCannonApiService {
+	rpc GetReadyz(GetReadyzRequest) returns (GetReadyzResponse) {}
+
+  rpc AddUpdate(AddUpdateRequest) returns (AddUpdateResponse) {}
+}

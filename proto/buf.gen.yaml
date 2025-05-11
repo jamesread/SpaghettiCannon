@@ -1,16 +1,12 @@
 version: v2
 plugins:
   - local: protoc-gen-go
-    out: ../backend/gen/proto/
+    out: ../service/gen/
     opt: paths=source_relative
 
   - local: protoc-gen-connect-go
-    out: ../backend/gen/proto/
+    out: ../service/gen/
     opt: paths=source_relative
-
-    #  - local: protoc-gen-grpc-gateway
-    #    out: ../backend/gen/grpc/
-    #    opt: paths=source_relative
 
   - remote: buf.build/bufbuild/es
     out: ../frontend/ts/proto/

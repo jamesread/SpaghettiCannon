@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html lang = "en">
+	<head>
+		<meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+
+		<title>SpaghettiCannon</title>
+
+		<link rel = "shortcut icon" type = "image/png" href = "SpaghettiCannonLogo.png" />
+		<link rel = "stylesheet" type = "text/css" href = "resources/stylesheets/style.css" />
+		<link rel = "stylesheet" type = "text/css" href = "resources/stylesheets/BrightAndSimpleTheme/style.css" />
+	</head>
+
+	<body>
+		<header>
+			<img src = "SpaghettiCannonLogo.png" class = "logo" />
+
+			<nav>
+
+			</nav>
+		</header>
+
+		<main>
+			<section id = "update">
+				<slot id = "updateBox"></slot>
+			</section>
+
+			<section id = "history">
+				history
+			</section>
+
+		</main>
+
+		<footer>
+			<span><a href = "https://github.com/jamesread/SpaghettiCannon">SpaghettiCannon</a></span>
+			<span id = "version">?</span>
+		</footer>
+
+		<script src = "lib/iconify-icon-2.0.0.min.js"></script>
+		<script type = "module" src = "main.ts"></script>
+	</body>
+</html>

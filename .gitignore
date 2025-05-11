@@ -1,10 +1,10 @@
 **/*.swo
 **/*.swp
 /webui
-/SpaghettiCannon
-/webui.dev/node_modules/
-/webui.dev/.parcel-cache/
-gen/
+/backend/SpaghettiCannon
+/frontend/node_modules/
+/frontend/.parcel-cache/
+/frontend/.cache
 tmp/
 /dist
 config.yaml

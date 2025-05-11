@@ -1,8 +1,2 @@
-header .icon {
-  font-size: 2.5em;
-  vertical-align: middle;
-}
-
-header {
-  vertical-align: middle;
+header > .logo {
 }

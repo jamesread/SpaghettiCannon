@@ -1,15 +1,13 @@
-default: protoc frontend backend
+default: protoc frontend service
 
 frontend:
 	$(MAKE) -C frontend -w
 
-backend:
-	$(MAKE) -C backend -w
+service:
+	$(MAKE) -C service -w
 
 protoc:
-	$(MAKE) -C frontend -w protoc
-	$(MAKE) -C backend -w go-tools
-	$(MAKE) -C proto -w
+	$(MAKE) -wC proto
 
 
-.PHONY: default frontend backend protoc
+.PHONY: default frontend service protoc

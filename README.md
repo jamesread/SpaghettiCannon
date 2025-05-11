@@ -1,10 +1,10 @@
-# SpaghettiCannon
+<div align = "center">
+	<img alt = "project logo" src = "logo.png" width = "128" />
+	<h1>SpaghettiCannon</h1>
+	<p>A personal quality of life tracker.</p>
 
-<img src = "https://raw.githubusercontent.com/jamesread/SpaghettiCannon/main/var/logo.png" width = "160px" alt = "project logo" align = "right" />
-
+[![Maturity](https://img.shields.io/badge/maturity-Sandbox-yellow)](#none)
 [![Discord](https://img.shields.io/discord/846737624960860180?label=Discord%20Server)](https://discord.gg/jhYWWpNJ3v)
-
-**A personal quality of life tracker.**
 
 Track your weight, mood, food, exercise, periods, in a self-hosted way, while keeping your own data.
 

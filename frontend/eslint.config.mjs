@@ -5,7 +5,6 @@ export default [
   js.configs.recommended,
   ...ts.configs.recommended,
   {
-    ignores: ["lib/*", "ts/grpc/*", "dist/*"],
+    ignores: ["lib/*", "ts/proto/*", "dist/*"],
   }
 ];
-

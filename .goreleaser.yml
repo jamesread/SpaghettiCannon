@@ -20,7 +20,11 @@ builds:
     dir: backend
 
     ldflags:
-      - -s -w -X main.version={{.Version}} -X main.commit={{.ShortCommit}} -X main.date={{ .CommitDate }}
+      - >
+        -s -w
+        -X github.com/jamesread/SpaghettiCannon/internal/buildinfo.Version={{.Version}}
+        -X github.com/jamesread/SpaghettiCannon/internal/buildinfo.GitCommit.{{.Commit}}
+        -X github.com/jamesread/SpaghettiCannon/internal/buildinfo.BuildDate={{.Date}}
 
 checksum:
   name_template: 'checksums.txt'
