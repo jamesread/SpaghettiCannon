@@ -75,7 +75,7 @@ dockers:
       - "--label=org.opencontainers.image.revision={{.FullCommit}}"
       - "--label=org.opencontainers.image.version={{.Tag}}"
     extra_files:
-      - webui
+      - frontend
       - config.yaml
 
 
