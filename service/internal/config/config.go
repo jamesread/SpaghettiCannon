@@ -42,9 +42,9 @@ func DefaultConfig() *Config {
 
 func findConfigDir() string {
 	directoriesToSearch := []string{
+		"/config/",
 		"./",
 		"../",
-		"/config/",
 	}
 
 	for _, dir := range directoriesToSearch {
