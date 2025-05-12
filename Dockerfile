@@ -4,7 +4,7 @@ LABEL org.opencontainers.image.source=https://github.com/jamesread/SpaghettiCann
 
 COPY config.yaml /config/config.yaml
 COPY SpaghettiCannon /SpaghettiCannon
-COPY frontend/dist/* /webui
+COPY frontend/dist /webui
 
 VOLUME /data
 VOLUME /config
