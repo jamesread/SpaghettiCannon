@@ -19,7 +19,7 @@ builds:
       - >
         -s -w
         -X github.com/jamesread/SpaghettiCannon/internal/buildinfo.Version={{.Version}}
-        -X github.com/jamesread/SpaghettiCannon/internal/buildinfo.GitCommit.{{.Commit}}
+        -X github.com/jamesread/SpaghettiCannon/internal/buildinfo.GitCommit={{.Commit}}
         -X github.com/jamesread/SpaghettiCannon/internal/buildinfo.BuildDate={{.Date}}
 
 checksum:
