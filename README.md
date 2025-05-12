@@ -13,13 +13,9 @@ Track your weight, mood, food, exercise, periods, in a self-hosted way, while ke
 
 This project is very much in the ideation sage, and is being developed with discussions on the OliveTin Discord ([Invite Link](https://discord.gg/jhYWWpNJ3v)). Join if you'd like to contribute ideas!
 
-## Try it
+## Get Started
 
-```
-docker run -p 4337:4337 ghcr.io/jamesread/spaghetticannon:latest
-```
-
-Then point your web browser at http://yourServer:4337.
+The [Installation Guide](https://jamesread.github.io/SpaghettiCannon/install/index.html) has detailed documentation on how to get started, using either docker, or docker compose.
 
 ## No Nonsense Open Source
 

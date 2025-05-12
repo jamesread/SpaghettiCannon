@@ -1,3 +1,5 @@
 = SpaghettiCannon
 
-Hello there :-)
+**A personal quality of life tracker.**
+
+Track your weight, mood, food, exercise, periods, and more in a self-hosted way, while keeping your own data.
