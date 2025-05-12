@@ -1,0 +1,1 @@
+* xref:install/index.adoc[Installation Guide]

@@ -9,5 +9,12 @@ service:
 protoc:
 	$(MAKE) -wC proto
 
+docs-local:
+	$(MAKE) -wC docs
+	./docs/node_modules/.bin/antora antora-playbook.yml --to-dir /var/www/html/sc-docs/
 
-.PHONY: default frontend service protoc
+make docs:
+	$(MAKE) -wC docs
+	./docs/node_modules/.bin/antora antora-playbook.yml
+
+.PHONY: default frontend service protoc docs

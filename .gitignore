@@ -1,5 +1,6 @@
 **/*.swo
 **/*.swp
+/build/
 /webui
 /backend/SpaghettiCannon
 /frontend/node_modules/

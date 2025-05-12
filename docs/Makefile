@@ -1,2 +1,2 @@
-antora:
-	antora antora-playbook.yml
+ci:
+	npm ci
