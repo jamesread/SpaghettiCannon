@@ -4,6 +4,7 @@ import (
 	log "github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v2"
 	"os"
+	"path/filepath"
 )
 
 type Config struct {
@@ -39,8 +40,37 @@ func DefaultConfig() *Config {
 	}
 }
 
+func findConfigDir() string {
+	directoriesToSearch := []string{
+		"./",
+		"../",
+		"/config/",
+	}
+
+	for _, dir := range directoriesToSearch {
+		if _, err := os.Stat(dir); !os.IsNotExist(err) {
+			log.WithFields(log.Fields{
+				"dir": dir,
+			}).Infof("Found the config directory")
+
+			return dir
+		}
+	}
+
+	log.Warnf("Did not find the config directory, you will probably crash loop.")
+
+	return "./" // Should not exist
+}
+
+
 func LoadConfig(cfg *Config) {
-	f, err := os.ReadFile("config.yaml")
+	cfgFile, _ := filepath.Abs(filepath.Join(findConfigDir(), "config.yaml"))
+
+	log.WithFields(log.Fields{
+		"cfgFile": cfgFile,
+	}).Infof("Loading config file")
+
+	f, err := os.ReadFile(cfgFile)
 
 	if err != nil {
 		log.Fatal(err)

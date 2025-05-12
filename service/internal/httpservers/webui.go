@@ -6,6 +6,7 @@ import (
 	log "github.com/sirupsen/logrus"
 	"net/http"
 	"os"
+	"path/filepath"
 )
 
 type webUISettings struct {
@@ -32,11 +33,14 @@ func findWebuiDir(dir string) string {
 
 	for _, dir := range directoriesToSearch {
 		if _, err := os.Stat(dir); !os.IsNotExist(err) {
+			absdir, _ := filepath.Abs(dir)
+
 			log.WithFields(log.Fields{
 				"dir": dir,
+				"absdir": absdir,
 			}).Infof("Found the webui directory")
 
-			return dir
+			return absdir
 		}
 	}
 
