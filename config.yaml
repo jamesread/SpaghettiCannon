@@ -1,0 +1,9 @@
+---
+configVersion: 1
+
+loglevel: info
+
+database:
+  host: mysql
+  user: user
+  pass: password

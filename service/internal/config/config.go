@@ -7,6 +7,7 @@ import (
 )
 
 type Config struct {
+	ConfigVersion int
 	ListenAddress string
 	WebUIDir      string
 	LogLevel      string
