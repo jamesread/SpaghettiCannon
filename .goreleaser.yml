@@ -61,7 +61,7 @@ dockers:
       - "--label=org.opencontainers.image.revision={{.FullCommit}}"
       - "--label=org.opencontainers.image.version={{.Tag}}"
     extra_files:
-      - frontend/dist/
+      - frontend/dist
       - config.yaml
 
   - image_templates:
@@ -75,7 +75,7 @@ dockers:
       - "--label=org.opencontainers.image.revision={{.FullCommit}}"
       - "--label=org.opencontainers.image.version={{.Tag}}"
     extra_files:
-      - frontend/dist/
+      - frontend/dist
       - config.yaml
 
 

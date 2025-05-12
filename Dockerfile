@@ -1,9 +1,9 @@
 FROM alpine
 
-LABEL org.opencontainers.image.source https://github.com/jamesread/SpaghettiCannon
+LABEL org.opencontainers.image.source=https://github.com/jamesread/SpaghettiCannon
 
 COPY config.yaml /config/config.yaml
-COPY backend/SpaghettiCannon /SpaghettiCannon
+COPY SpaghettiCannon /SpaghettiCannon
 COPY dist/* /webui
 
 VOLUME /data
