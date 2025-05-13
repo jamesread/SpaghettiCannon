@@ -1,5 +1,6 @@
 = Docker (standalone)
 
+.Bash
 [source,bash]
 ----
 docker pull ghcr.io/jamesread/spaghetticannon:latest
