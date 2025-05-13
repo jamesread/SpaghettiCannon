@@ -1,0 +1,33 @@
+= Docker Compose
+
+[source,yaml]
+----
+---
+services:
+  spaghetticannon:
+    container_name: SpaghettiCannon
+    image: ghcr.io/jamesread/spaghetticannon:latest
+    volumes:
+      - spaghetticannon-config:/config
+    restart: unless-stopped
+    ports:
+      - "4337:4337"
+    networks:
+      - spaghetticannon-network
+
+  mariadb:
+    container_name: mariadb
+    image: docker.io/mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: password
+      MARIADB_DATABASE: spaghetticannon
+
+volumes:
+  spaghetticannon-config:
+    name: spaghetticannon-config
+    external: false
+
+networks:
+  spaghetticannon-network:
+    external: false
+----

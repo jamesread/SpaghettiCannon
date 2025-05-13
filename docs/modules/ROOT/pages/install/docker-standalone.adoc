@@ -1,0 +1,12 @@
+= Docker (standalone)
+
+[source,bash]
+----
+docker pull ghcr.io/jamesread/spaghetticannon:latest
+docker create \
+  --name SpaghettiCannon \
+  -v spaghetticannon-config:/config \
+  -p 4337:4337 \
+  --restart unless-stopped \
+  ghcr.io/jamesread/spaghetticannon:latest
+---
