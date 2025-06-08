@@ -1,5 +1,15 @@
 <template>
-  <input placeholder = "Enter weight update here" />
+	<section class = "weight">
+		<h2>Update Box</h2>
+		<p>Type an update and press Enter to log it.</p>
+		<form>
+			<input type = "text" placeholder = "Enter update here" />
+
+			<fieldset>
+				<button type = "submit">Log</button>
+			</fieldset>
+		</form>
+	</section>
 </template>
 
 <script>

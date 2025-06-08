@@ -4,20 +4,19 @@ import { createClient } from "@connectrpc/connect";
 import { createConnectTransport } from "@connectrpc/connect-web";
 import { SpaghettiCannonApiService } from "./ts/proto/SpaghettiCannon/clientapi/v1/clientapi_pb"
 
-/**
 import { createApp } from 'vue'
 import MagicButton from './vue/MagicButton.vue'
+
 import UpdateBox from './vue/UpdateBox.vue'
-*/
+
+import HeaderNavigation from './vue/HeaderNavigation.vue'
 
 function main (): void {
   document.querySelector('#history').appendChild(createGraph())
 
-  /**
   createApp(MagicButton).mount('#magicButton')
-
   createApp(UpdateBox).mount('#updateBox')
-  */
+  createApp(HeaderNavigation).mount('#header-nav')
 
   let baseUrl = window.location.href + 'api/'
 
@@ -40,34 +39,7 @@ async function checkReady (): void {
 
   document.getElementById('version').innerText = res.version
 
-  const icons = {
-		"weight-outline": "Weight",
-		"heart-outline": "Heart",
-		"mental-disorders-outline": "Mood",
-		"exercise-bicycle-outline": "Exercise",
-		"blood-drop-outline": "BP",
-		"unhealthy-food-outline": "Food",
-  }
-
-  for (const [icon, title] of Object.entries(icons)) {
-	  const li = document.createElement('li')
-
-	  const a = document.createElement('a')
-	  a.title = title
-	  a.classList.add('icon');
-
-	  const domIcon = document.createElement('iconify-icon')
-	  domIcon.setAttribute('icon', 'healthicons:' + icon)
-	  a.appendChild(domIcon)
-
-	  li.appendChild(a)
-
-	  document.querySelector('nav').appendChild(li)
-  }
-
-  console.log("readyz", res);
 }
-
 
 function createGraph (): Node {
   const width = 640

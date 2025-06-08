@@ -15,19 +15,20 @@
 		<header>
 			<img src = "SpaghettiCannonLogo.png" class = "logo" />
 
-			<nav>
-
-			</nav>
+			<slot id = "header-nav"></slot>
 		</header>
 
 		<main>
-			<section id = "update">
-				<slot id = "updateBox"></slot>
+
+			<section class = "home">
+				<h1>SpaghettiCannon</h1>
+				<p>SpaghettiCannon is a personal quality of life tracker.</p>
 			</section>
 
-			<section id = "history">
-				history
-			</section>
+			<slot id = "magicButton"></slot>
+			<slot id = "updateBox"></slot>
+
+			<section id = "history" class = "heart"></section>
 
 		</main>
 
@@ -36,7 +37,6 @@
 			<span id = "version">?</span>
 		</footer>
 
-		<script src = "lib/iconify-icon-2.0.0.min.js"></script>
 		<script type = "module" src = "main.ts"></script>
 	</body>
 </html>

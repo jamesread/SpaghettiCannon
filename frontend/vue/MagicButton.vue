@@ -1,9 +1,12 @@
 <template>
-	<button>foo</button>
+	<section>
+		<h2>Magic Button</h2>
+		<p>Click the button to increase the count.</p>
+		<button @click="onClick">{{ state.count }}</button>
+	</section>
 </template>
 
 <script>
-	/**
   import { reactive, computed } from 'vue'
 
   export default {
@@ -22,7 +25,6 @@
       }
     }
   }
-  **/
 </script>
 
 <style lang = "css" scoped>

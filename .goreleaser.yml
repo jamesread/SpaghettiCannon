@@ -85,6 +85,11 @@ docker_manifests:
       - ghcr.io/jamesread/spaghetticannon:{{ .Version }}-amd64
       - ghcr.io/jamesread/spaghetticannon:{{ .Version }}-arm64
 
+  - name_template: ghcr.io/jamesread/spaghetticannon:{{ .Version }}
+    image_templates:
+      - ghcr.io/jamesread/spaghetticannon:{{ .Version }}-amd64
+      - ghcr.io/jamesread/spaghetticannon:{{ .Version }}-arm64
+
 release:
   footer: |
     ## Container images (from GitHub)

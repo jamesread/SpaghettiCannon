@@ -1,1 +1,21 @@
 /** todo **/
+main {
+	flex-grow: 1;
+}
+
+footer {
+	padding: 1em;
+}
+
+
+p:last-child {
+	margin-bottom: 0;
+}
+
+header ul[role="menubar"] a.active:visited {
+	background-color: #666;
+}
+
+header ul[role="menubar"] {
+	align-items: end;
+}

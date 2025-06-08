@@ -1,8 +1,6 @@
 module github.com/jamesread/SpaghettiCannon
 
-go 1.23.4
-
-toolchain go1.23.7
+go 1.23.8
 
 require (
 	connectrpc.com/connect v1.18.1
@@ -73,6 +71,7 @@ require (
 	github.com/google/pprof v0.0.0-20250418163039-24c5476c6587 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
+	github.com/jamesread/golure v0.0.0-20250602094058-842cf536d370 // indirect
 	github.com/jdx/go-netrc v1.0.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
