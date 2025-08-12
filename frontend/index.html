@@ -12,11 +12,7 @@
 	</head>
 
 	<body>
-		<header>
-			<img src = "SpaghettiCannonLogo.png" class = "logo" />
-
-			<slot id = "header-nav"></slot>
-		</header>
+		<slot id = "app" />
 
 		<main>
 
@@ -31,11 +27,6 @@
 			<section id = "history" class = "heart"></section>
 
 		</main>
-
-		<footer>
-			<span><a href = "https://github.com/jamesread/SpaghettiCannon">SpaghettiCannon</a></span>
-			<span id = "version">?</span>
-		</footer>
 
 		<script type = "module" src = "main.ts"></script>
 	</body>

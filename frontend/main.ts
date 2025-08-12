@@ -1,10 +1,15 @@
 import * as d3 from 'd3'
 
+import 'femtocrank/style.css'
+
 import { createClient } from "@connectrpc/connect";
 import { createConnectTransport } from "@connectrpc/connect-web";
 import { SpaghettiCannonApiService } from "./ts/proto/SpaghettiCannon/clientapi/v1/clientapi_pb"
 
 import { createApp } from 'vue'
+import router from './router'
+import App from './App.vue'
+
 import MagicButton from './vue/MagicButton.vue'
 
 import UpdateBox from './vue/UpdateBox.vue'
@@ -14,17 +19,12 @@ import HeaderNavigation from './vue/HeaderNavigation.vue'
 function main (): void {
   document.querySelector('#history').appendChild(createGraph())
 
-  createApp(MagicButton).mount('#magicButton')
-  createApp(UpdateBox).mount('#updateBox')
-  createApp(HeaderNavigation).mount('#header-nav')
+  const app = createApp(App)
+  app.use(router)
+  app.mount('#app')
 
-  let baseUrl = window.location.href + 'api/'
-
-  if (window.location.port == '5173') {
-	  baseUrl = 'http://localhost:4337/api/'
-  }
   const transport = createConnectTransport({
-    baseUrl: baseUrl
+    baseUrl: window.location.href + 'api/',
   })
 
   window.client = createClient(SpaghettiCannonApiService, transport)
@@ -33,12 +33,6 @@ function main (): void {
 }
 
 async function checkReady (): void {
-  const res = await window.client.getReadyz({
-    name: "Batman",
-  })
-
-  document.getElementById('version').innerText = res.version
-
 }
 
 function createGraph (): Node {
