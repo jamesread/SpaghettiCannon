@@ -8,7 +8,6 @@ export default [
     ignores: [
       "lib/*",
       "ts/proto/*",
-      "resources/stylesheets/BrightAndSimpleTheme/*",
       "dist/*"
     ],
   }
