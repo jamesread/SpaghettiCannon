@@ -3,7 +3,7 @@
 		<div class = "section-header">
 			<h2>Welcome!</h2>
 		</div>
-		<div class = "section-content">
+		<div class = "section-content padding">
 			Welcome to SpaghettiCannon!
 		</div>
 	</section>
