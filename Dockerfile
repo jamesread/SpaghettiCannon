@@ -9,4 +9,6 @@ COPY frontend/dist /webui
 VOLUME /data
 VOLUME /config
 
+EXPOSE 8080
+
 ENTRYPOINT ["/SpaghettiCannon"]

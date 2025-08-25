@@ -29,7 +29,7 @@ func DefaultConfig() *Config {
 	return &Config{
 		WebUIDir:      "./webui/",
 		LogLevel:      "info",
-		ListenAddress: "0.0.0.0:4337",
+		ListenAddress: "0.0.0.0:8080",
 		Database: &DatabaseConfig{
 			Host: "localhost",
 			Port: 3306,
