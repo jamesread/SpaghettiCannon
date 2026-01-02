@@ -1,10 +1,11 @@
 package config
 
 import (
-	log "github.com/sirupsen/logrus"
-	"gopkg.in/yaml.v2"
 	"os"
 	"path/filepath"
+
+	log "github.com/sirupsen/logrus"
+	"gopkg.in/yaml.v2"
 )
 
 type Config struct {
@@ -61,7 +62,6 @@ func findConfigDir() string {
 
 	return "./" // Should not exist
 }
-
 
 func LoadConfig(cfg *Config) {
 	cfgFile, _ := filepath.Abs(filepath.Join(findConfigDir(), "config.yaml"))

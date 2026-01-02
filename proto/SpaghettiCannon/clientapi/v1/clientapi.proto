@@ -18,8 +18,17 @@ message AddUpdateRequest {
 message AddUpdateResponse {
 }
 
+message InitRequest {
+}
+
+message InitResponse {
+	string version = 1;
+}
+
 service SpaghettiCannonApiService {
 	rpc GetReadyz(GetReadyzRequest) returns (GetReadyzResponse) {}
 
   rpc AddUpdate(AddUpdateRequest) returns (AddUpdateResponse) {}
+
+	rpc Init(InitRequest) returns (InitResponse) {}
 }

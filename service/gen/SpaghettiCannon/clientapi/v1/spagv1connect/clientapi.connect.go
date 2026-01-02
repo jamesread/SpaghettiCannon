@@ -40,6 +40,9 @@ const (
 	// SpaghettiCannonApiServiceAddUpdateProcedure is the fully-qualified name of the
 	// SpaghettiCannonApiService's AddUpdate RPC.
 	SpaghettiCannonApiServiceAddUpdateProcedure = "/SpaghettiCannon.clientapi.v1.SpaghettiCannonApiService/AddUpdate"
+	// SpaghettiCannonApiServiceInitProcedure is the fully-qualified name of the
+	// SpaghettiCannonApiService's Init RPC.
+	SpaghettiCannonApiServiceInitProcedure = "/SpaghettiCannon.clientapi.v1.SpaghettiCannonApiService/Init"
 )
 
 // SpaghettiCannonApiServiceClient is a client for the
@@ -47,6 +50,7 @@ const (
 type SpaghettiCannonApiServiceClient interface {
 	GetReadyz(context.Context, *connect.Request[v1.GetReadyzRequest]) (*connect.Response[v1.GetReadyzResponse], error)
 	AddUpdate(context.Context, *connect.Request[v1.AddUpdateRequest]) (*connect.Response[v1.AddUpdateResponse], error)
+	Init(context.Context, *connect.Request[v1.InitRequest]) (*connect.Response[v1.InitResponse], error)
 }
 
 // NewSpaghettiCannonApiServiceClient constructs a client for the
@@ -73,6 +77,12 @@ func NewSpaghettiCannonApiServiceClient(httpClient connect.HTTPClient, baseURL s
 			connect.WithSchema(spaghettiCannonApiServiceMethods.ByName("AddUpdate")),
 			connect.WithClientOptions(opts...),
 		),
+		init: connect.NewClient[v1.InitRequest, v1.InitResponse](
+			httpClient,
+			baseURL+SpaghettiCannonApiServiceInitProcedure,
+			connect.WithSchema(spaghettiCannonApiServiceMethods.ByName("Init")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
@@ -80,6 +90,7 @@ func NewSpaghettiCannonApiServiceClient(httpClient connect.HTTPClient, baseURL s
 type spaghettiCannonApiServiceClient struct {
 	getReadyz *connect.Client[v1.GetReadyzRequest, v1.GetReadyzResponse]
 	addUpdate *connect.Client[v1.AddUpdateRequest, v1.AddUpdateResponse]
+	init      *connect.Client[v1.InitRequest, v1.InitResponse]
 }
 
 // GetReadyz calls SpaghettiCannon.clientapi.v1.SpaghettiCannonApiService.GetReadyz.
@@ -92,11 +103,17 @@ func (c *spaghettiCannonApiServiceClient) AddUpdate(ctx context.Context, req *co
 	return c.addUpdate.CallUnary(ctx, req)
 }
 
+// Init calls SpaghettiCannon.clientapi.v1.SpaghettiCannonApiService.Init.
+func (c *spaghettiCannonApiServiceClient) Init(ctx context.Context, req *connect.Request[v1.InitRequest]) (*connect.Response[v1.InitResponse], error) {
+	return c.init.CallUnary(ctx, req)
+}
+
 // SpaghettiCannonApiServiceHandler is an implementation of the
 // SpaghettiCannon.clientapi.v1.SpaghettiCannonApiService service.
 type SpaghettiCannonApiServiceHandler interface {
 	GetReadyz(context.Context, *connect.Request[v1.GetReadyzRequest]) (*connect.Response[v1.GetReadyzResponse], error)
 	AddUpdate(context.Context, *connect.Request[v1.AddUpdateRequest]) (*connect.Response[v1.AddUpdateResponse], error)
+	Init(context.Context, *connect.Request[v1.InitRequest]) (*connect.Response[v1.InitResponse], error)
 }
 
 // NewSpaghettiCannonApiServiceHandler builds an HTTP handler from the service implementation. It
@@ -118,12 +135,20 @@ func NewSpaghettiCannonApiServiceHandler(svc SpaghettiCannonApiServiceHandler, o
 		connect.WithSchema(spaghettiCannonApiServiceMethods.ByName("AddUpdate")),
 		connect.WithHandlerOptions(opts...),
 	)
+	spaghettiCannonApiServiceInitHandler := connect.NewUnaryHandler(
+		SpaghettiCannonApiServiceInitProcedure,
+		svc.Init,
+		connect.WithSchema(spaghettiCannonApiServiceMethods.ByName("Init")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/SpaghettiCannon.clientapi.v1.SpaghettiCannonApiService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case SpaghettiCannonApiServiceGetReadyzProcedure:
 			spaghettiCannonApiServiceGetReadyzHandler.ServeHTTP(w, r)
 		case SpaghettiCannonApiServiceAddUpdateProcedure:
 			spaghettiCannonApiServiceAddUpdateHandler.ServeHTTP(w, r)
+		case SpaghettiCannonApiServiceInitProcedure:
+			spaghettiCannonApiServiceInitHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -139,4 +164,8 @@ func (UnimplementedSpaghettiCannonApiServiceHandler) GetReadyz(context.Context, 
 
 func (UnimplementedSpaghettiCannonApiServiceHandler) AddUpdate(context.Context, *connect.Request[v1.AddUpdateRequest]) (*connect.Response[v1.AddUpdateResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("SpaghettiCannon.clientapi.v1.SpaghettiCannonApiService.AddUpdate is not implemented"))
+}
+
+func (UnimplementedSpaghettiCannonApiServiceHandler) Init(context.Context, *connect.Request[v1.InitRequest]) (*connect.Response[v1.InitResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("SpaghettiCannon.clientapi.v1.SpaghettiCannonApiService.Init is not implemented"))
 }

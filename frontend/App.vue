@@ -4,33 +4,37 @@
 		<h1>SpaghettiCannon</h1>
 	</header>
 
-	<div id = "layout">
+	<Navigation ref = "navigation">
+		<div id = "layout">
 
-		<Sidebar ref = "sidebar" />
+			<Sidebar ref = "sidebar" />
 
-		<div id = "content">
-			<main>
-				<router-view />
-			</main>
+			<div id = "content">
+				<main>
+					<router-view />
+				</main>
 
-			<footer>
-				<span><a href = "https://github.com/jamesread/SpaghettiCannon">SpaghettiCannon</a></span>
-				<span id = "version">?</span>
-			</footer>
+				<footer>
+					<span><a href = "https://github.com/jamesread/SpaghettiCannon">SpaghettiCannon</a></span>
+					<span id = "version">?</span>
+				</footer>
+			</div>
 		</div>
-	</div>
+	</Navigation>
 </template>
 
 <script setup>
+	import Navigation from 'picocrank/vue/components/Navigation.vue';
 	import Sidebar from 'picocrank/vue/components/Sidebar.vue';
 	import { onMounted, ref } from 'vue';
 
+	const navigation = ref(null);
 	const sidebar = ref(null);
 
 	onMounted(() => {
-	  sidebar.value.addNavigationLink({path: '/', id: 'home', icon: 'mdi-light:home', title: 'Home'});
-	  sidebar.value.addNavigationLink({path: '/weight', id: 'weight', icon: 'mdi-light:home', title: 'Weight'});
-	  sidebar.value.addNavigationLink({path: '/heart', id: 'heart', icon: 'mdi-light:home', title: 'Heart'});
+	  navigation.value.addRouterLink('home');
+	  navigation.value.addRouterLink('weight');
+	  navigation.value.addRouterLink('heart');
 	  sidebar.value.toggle();
 	  sidebar.value.stick();
 	});

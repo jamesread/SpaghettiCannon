@@ -78,3 +78,13 @@ func (api *SpaghettiCannonApiService) AddUpdate(ctx context.Context, req *connec
 
 	return res, nil
 }
+
+func (api *SpaghettiCannonApiService) Init(ctx context.Context, req *connect.Request[pb.InitRequest]) (*connect.Response[pb.InitResponse], error) {
+	res := connect.NewResponse(&pb.InitResponse{
+		Version: buildinfo.Version,
+	})
+
+	log.Info("Init called")
+
+	return res, nil
+}

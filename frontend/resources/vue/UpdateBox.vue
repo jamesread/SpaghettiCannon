@@ -12,22 +12,6 @@
 	</Section>
 </template>
 
-<script>
+<script setup>
 	import Section from 'picocrank/vue/components/Section.vue'
-	/**
-  export default {
-    setup() {
-      const onKeyDown = (e) => {
-        console.log(e.target.value)
-
-        if (e.keyCode === 13) {
-        }
-      }
-
-      return {
-        onKeyDown
-      }
-    }
-  }
-  */
 </script>

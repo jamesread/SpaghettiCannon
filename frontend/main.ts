@@ -16,7 +16,7 @@ import UpdateBox from './vue/UpdateBox.vue'
 
 import HeaderNavigation from './vue/HeaderNavigation.vue'
 
-function main (): void {
+async function main (): Promise<void> {
   document.querySelector('#history').appendChild(createGraph())
 
   const app = createApp(App)
@@ -29,10 +29,23 @@ function main (): void {
 
   window.client = createClient(SpaghettiCannonApiService, transport)
 
-  checkReady()
+  await init()
 }
 
-async function checkReady (): void {
+async function init (): Promise<void> {
+  try {
+    const response = await window.client.init({})
+    const versionElement = document.getElementById('version')
+    if (versionElement) {
+      versionElement.textContent = response.version
+    }
+  } catch (error) {
+    console.error('Failed to initialize:', error)
+    const versionElement = document.getElementById('version')
+    if (versionElement) {
+      versionElement.textContent = 'error'
+    }
+  }
 }
 
 function createGraph (): Node {
