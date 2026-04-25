@@ -10,12 +10,6 @@ import { createApp } from 'vue'
 import router from './router'
 import App from './App.vue'
 
-import MagicButton from './vue/MagicButton.vue'
-
-import UpdateBox from './vue/UpdateBox.vue'
-
-import HeaderNavigation from './vue/HeaderNavigation.vue'
-
 async function main (): Promise<void> {
   document.querySelector('#history').appendChild(createGraph())
 

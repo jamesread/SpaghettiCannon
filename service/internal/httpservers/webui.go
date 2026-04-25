@@ -1,9 +1,9 @@
 package httpservers
 
 import (
-	"github.com/jamesread/golure/pkg/dirs"
 	"github.com/jamesread/SpaghettiCannon/internal/buildinfo"
 	"github.com/jamesread/SpaghettiCannon/internal/config"
+	"github.com/jamesread/golure/pkg/dirs"
 	"net/http"
 )
 
@@ -39,7 +39,7 @@ func serveWebuiSettings(w http.ResponseWriter, r *http.Request) {
 
 func generateWebUISettings(cfg *config.Config) *webUISettings {
 	ret := &webUISettings{
-		ShowFooter: cfg.ShowFooter,
+		ShowFooter:     cfg.ShowFooter,
 		CurrentVersion: buildinfo.Version,
 	}
 

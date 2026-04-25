@@ -2,8 +2,8 @@ package api
 
 import (
 	"context"
-	"github.com/jamesread/SpaghettiCannon/internal/config"
 	"github.com/jamesread/SpaghettiCannon/internal/buildinfo"
+	"github.com/jamesread/SpaghettiCannon/internal/config"
 	log "github.com/sirupsen/logrus"
 
 	"fmt"

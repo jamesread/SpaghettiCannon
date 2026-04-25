@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "devDependencies": {
-    "@bufbuild/buf": "^1.42.0",
-    "@bufbuild/protoc-gen-es": "^1.0.0",
-    "@connectrpc/protoc-gen-connect-es": "^1.0.0"
+    "@bufbuild/buf": "^1.68.4",
+    "@bufbuild/protoc-gen-es": "^2.12.0",
+    "@connectrpc/protoc-gen-connect-es": "^1.7.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

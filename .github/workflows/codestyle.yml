@@ -4,11 +4,10 @@ name: "Codestyle checks"
 on:
   push:
     paths:
-      - 'cmd/**'
-      - 'internal/**'
-      - 'webui.dev/**'
-      - 'integration-tests/**'
-      - 'SpaghettiCannon.proto'
+      - 'service/**'
+      - 'frontend/**'
+      - 'proto/**'
+      - '.github/workflows/codestyle.yml'
 
 
 jobs:
@@ -21,15 +20,22 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version-file: 'backend/go.mod'
-          cache-dependency-path: backend/go.mod
+          go-version-file: 'service/go.mod'
+          cache-dependency-path: service/go.mod
           cache: true
 
-      - name: deps
-        run: make -w grpc
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
 
-      - name: daemon
-        run: make -w daemon-codestyle
+      - name: go tools and protobuf codegen
+        run: make -C service -w go-tools && make -w protoc
 
-      - name: webui
-        run: make -w webui-codestyle
+      - name: service codestyle
+        run: make -C service -w codestyle
+
+      - name: frontend lint
+        run: (cd frontend && npm ci) && make -C frontend -w lint
