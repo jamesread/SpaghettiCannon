@@ -33,6 +33,8 @@ func Start(cfg *config.Config) {
 	})
 
 	mux.HandleFunc("/webUiSettings.json", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+
 		jsonRet, _ := json.Marshal(generateWebUISettings(cfg))
 
 		_, err := w.Write([]byte(jsonRet))

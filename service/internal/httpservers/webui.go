@@ -16,6 +16,8 @@ type webUISettings struct {
 	CurrentVersion         string
 	PageTitle              string
 	SectionNavigationStyle string
+	ConfigError            string `json:"configError,omitempty"`
+	ConfigFile             string `json:"configFile,omitempty"`
 }
 
 func findWebuiDir(dir string) string {
@@ -41,6 +43,8 @@ func generateWebUISettings(cfg *config.Config) *webUISettings {
 	ret := &webUISettings{
 		ShowFooter:     cfg.ShowFooter,
 		CurrentVersion: buildinfo.Version,
+		ConfigError:    cfg.LoadError,
+		ConfigFile:     cfg.ConfigFile,
 	}
 
 	return ret

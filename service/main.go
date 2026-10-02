@@ -14,7 +14,9 @@ func main() {
 
 	cfg := config.DefaultConfig()
 
-	config.LoadConfig(cfg)
+	if err := config.LoadConfig(cfg); err != nil {
+		log.WithError(err).Warn("Starting without a valid config file; web UI will show the configuration error")
+	}
 
 	httpservers.Start(cfg)
 }

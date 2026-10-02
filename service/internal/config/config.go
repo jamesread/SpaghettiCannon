@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 
@@ -16,6 +17,10 @@ type Config struct {
 	ShowFooter    bool
 
 	Database *DatabaseConfig
+
+	// Set when config.yaml could not be loaded; not read from YAML.
+	ConfigFile string `yaml:"-"`
+	LoadError  string `yaml:"-"`
 }
 
 type DatabaseConfig struct {
@@ -63,23 +68,41 @@ func findConfigDir() string {
 	return "./" // Should not exist
 }
 
-func LoadConfig(cfg *Config) {
-	cfgFile, _ := filepath.Abs(filepath.Join(findConfigDir(), "config.yaml"))
+func LoadConfig(cfg *Config) error {
+	cfgFile, err := filepath.Abs(filepath.Join(findConfigDir(), "config.yaml"))
+	if err != nil {
+		return err
+	}
+
+	cfg.ConfigFile = cfgFile
 
 	log.WithFields(log.Fields{
 		"cfgFile": cfgFile,
 	}).Infof("Loading config file")
 
-	f, err := os.ReadFile(cfgFile)
+	return loadConfigFromFile(cfg, cfgFile)
+}
 
+func loadConfigFromFile(cfg *Config, cfgFile string) error {
+	f, err := os.ReadFile(cfgFile)
 	if err != nil {
-		log.Fatal(err)
-		return
+		if os.IsNotExist(err) {
+			cfg.LoadError = fmt.Sprintf("config.yaml cannot be found at %s", cfgFile)
+		} else {
+			cfg.LoadError = fmt.Sprintf("config.yaml could not be read: %v", err)
+		}
+
+		return err
 	}
 
 	err = yaml.UnmarshalStrict(f, cfg)
-
 	if err != nil {
-		log.Fatal(err)
+		cfg.LoadError = fmt.Sprintf("config.yaml is invalid: %v", err)
+
+		return err
 	}
+
+	cfg.LoadError = ""
+
+	return nil
 }
