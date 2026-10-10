@@ -8,20 +8,31 @@ services:
   spaghetticannon:
     container_name: SpaghettiCannon
     image: ghcr.io/jamesread/spaghetticannon:latest
+    environment:
+      DB_HOST: mariadb
+      DB_USER: spaghetticannon
+      DB_PASS: password
+      DB_NAME: spaghetticannon
     volumes:
       - spaghetticannon-config:/config
     restart: unless-stopped
     ports:
-      - "4337:4337"
+      - "8080:8080"
     networks:
       - spaghetticannon-network
+    depends_on:
+      - mariadb
 
   mariadb:
     container_name: mariadb
     image: docker.io/mariadb
     environment:
-      MARIADB_ROOT_PASSWORD: password
       MARIADB_DATABASE: spaghetticannon
+      MARIADB_USER: spaghetticannon
+      MARIADB_PASSWORD: password
+      MARIADB_ROOT_PASSWORD: password
+    networks:
+      - spaghetticannon-network
 
 volumes:
   spaghetticannon-config:
@@ -32,3 +43,5 @@ networks:
   spaghetticannon-network:
     external: false
 ----
+
+The entrypoint runs `sql-migrate up` before the service starts. Align `config.yaml` `database.*` with the same host/user/password/name. See xref:install/migrations.adoc[Database migrations].

@@ -1,10 +1,12 @@
 = Configuration
 
-All configuration of SpaghettiCannon is via a configuration file called `config.yaml`. When running SpaghettiCannon via Docker, this file is located in the `/config` directory.
+SpaghettiCannon loads a YAML config file for bootstrap and connectivity. Runtime UI knobs live in the database as *configuration variables* (cvars), edited under *Settings* (`/admin/settings`).
 
-The configuration file can be created and edited using any text editor. The configuration file is in YAML format, which is a human-readable data serialization standard.
+== Config file location
 
-The most basic `config.yaml` file cam be as simple as this:
+When running via Docker, `config.yaml` is typically in the `/config` directory.
+
+The most basic `config.yaml` can be as simple as this:
 
 .config.yaml
 [source,yaml]
@@ -12,9 +14,35 @@ The most basic `config.yaml` file cam be as simple as this:
 logLevel: info
 ----
 
+`$PORT` overrides `listenAddress` when set. Database env vars (`DB_HOST`, `DB_USER`/`DB_USERNAME`, `DB_PASS`/`DB_PASSWORD`, `DB_NAME`/`DB_DATABASE`) override YAML `database.*` after load.
+
+== YAML options
+
+YAML values for `siteTitle`, `showFooter`, `showNewVersions`, and `showVersionNumber` are used only to *seed* matching cvars on first insert. After that, live values come from Settings (and Init). Title/description/category/ordinal metadata for known cvars is refreshed from application defaults on every startup; admin-chosen values are preserved.
+
 |===
-| Option       | Description           | Default         | Live Reloadable          | Documentation
+| Option | Description | Default | Live Reloadable | Notes
 | `configVersion` | The version of the configuration file. | 1 | No | ---
-| `logLevel`      | The log level to use. | info            | Yes                      | One of `debug`, `info`, `warn`, `error`.
-| `showFooter`    | Whether to show the footer in the web UI. | true           | No                      | ---
+| `logLevel` | The log level to use. | info | Yes | One of `debug`, `info`, `warn`, `error`.
+| `listenAddress` | HTTP bind address when `PORT` is unset. | 0.0.0.0:8080 | No | Overridden by `$PORT` (bare port or full address).
+| `siteTitle` | Initial site title seed for the `site_title` cvar. | SpaghettiCannon | No | Live title is the cvar after first startup.
+| `showFooter` | Seed for the `show_footer` cvar. | true | No | Live value is the cvar; projected via Init.
+| `showNewVersions` | Seed for the `show_new_versions` cvar. | true | No | Live value is the cvar; projected via Init.
+| `showVersionNumber` | Seed for the `show_version_number` cvar. | true | No | Live value is the cvar; projected via Init.
+|===
+
+Database connectivity (`database.host`, `database.user`, `database.pass`, `database.name`, `database.port`) is YAML-only bootstrap. sql-migrate expects `DB_HOST`, `DB_USER`, `DB_PASS`, and `DB_NAME` (entrypoint maps `DB_DATABASE` / `DB_USERNAME` / `DB_PASSWORD` when set). See xref:install/migrations.adoc[Database migrations].
+
+The expected migration id is a compile-time constant (`config.RequiredMigration`), not a config setting.
+
+== Settings (cvars)
+
+Missing defaults are inserted on startup. Saving a Settings section reloads Init so the SPA picks up changes without a process restart.
+
+|===
+| Key | Type | Default | Effect
+| `site_title` | string | from `siteTitle` | Header and browser tab title
+| `show_footer` | bool | from `showFooter` | Show the page footer
+| `show_new_versions` | bool | from `showNewVersions` | Footer update hint when a newer build exists
+| `show_version_number` | bool | from `showVersionNumber` | Show installed version in the footer
 |===

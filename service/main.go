@@ -18,5 +18,9 @@ func main() {
 		log.WithError(err).Warn("Starting without a valid config file; web UI will show the configuration error")
 	}
 
+	if level, err := log.ParseLevel(cfg.LogLevel); err == nil {
+		log.SetLevel(level)
+	}
+
 	httpservers.Start(cfg)
 }

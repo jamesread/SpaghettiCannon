@@ -10,14 +10,18 @@ away, and several other issues.
 
 import (
 	"encoding/json"
-	config "github.com/jamesread/SpaghettiCannon/internal/config"
-	log "github.com/sirupsen/logrus"
 	"net/http"
+	"path"
+
+	config "github.com/jamesread/SpaghettiCannon/internal/config"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
+	log "github.com/sirupsen/logrus"
 )
 
 func Start(cfg *config.Config) {
+	addr := config.ListenAddr(cfg)
 	log.WithFields(log.Fields{
-		"address": cfg.ListenAddress,
+		"address": addr,
 	}).Info("Starting single HTTP frontend")
 
 	mux := http.NewServeMux()
@@ -26,11 +30,16 @@ func Start(cfg *config.Config) {
 
 	log.Infof("API path: %q", apipath)
 
-	mux.HandleFunc("/api"+apipath, func(w http.ResponseWriter, r *http.Request) {
-		log.Debugf("api req: %q", r.URL)
+	mux.Handle("/api/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		fn := path.Base(r.URL.Path)
+		r.URL.Path = apipath + fn
 
-		http.StripPrefix("/api", apihandler).ServeHTTP(w, r)
-	})
+		log.Debugf("api req: %q", r.URL.Path)
+
+		apihandler.ServeHTTP(w, r)
+	}))
+
+	mux.Handle("/metrics", promhttp.Handler())
 
 	mux.HandleFunc("/webUiSettings.json", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
@@ -47,14 +56,10 @@ func Start(cfg *config.Config) {
 
 	webuiHandler := GetNewWebUIHandler(cfg.WebUIDir)
 
-	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		log.Debugf("ui  req: %q", r.URL)
-
-		webuiHandler.ServeHTTP(w, r)
-	})
+	mux.Handle("/", webuiHandler)
 
 	srv := &http.Server{
-		Addr:    cfg.ListenAddress,
+		Addr:    addr,
 		Handler: mux,
 	}
 

@@ -1,7 +1,7 @@
 ---
 configVersion: 1
 
-loglevel: info
+logLevel: info
 
 database:
   host: mysql

@@ -22,7 +22,35 @@ message InitRequest {
 }
 
 message InitResponse {
-	string version = 1;
+	string current_version = 1;
+	bool show_footer = 2;
+	bool show_new_versions = 3;
+	string available_version = 4;
+	string page_title = 5;
+	bool show_version_number = 6;
+}
+
+message Cvar {
+  string key = 1;
+  string main_type = 2;
+  int32 value_int = 3;
+  string value_string = 4;
+  string title = 5;
+  string description = 6;
+  string category = 7;
+  int32 ordinal = 8;
+}
+
+message ListCvarsRequest {}
+
+message ListCvarsResponse {
+  repeated Cvar cvars = 1;
+}
+
+message UpdateCvarRequest {
+  string key = 1;
+  int32 value_int = 2;
+  string value_string = 3;
 }
 
 service SpaghettiCannonApiService {
@@ -31,4 +59,8 @@ service SpaghettiCannonApiService {
   rpc AddUpdate(AddUpdateRequest) returns (AddUpdateResponse) {}
 
 	rpc Init(InitRequest) returns (InitResponse) {}
+
+	rpc ListCvars(ListCvarsRequest) returns (ListCvarsResponse) {}
+
+	rpc UpdateCvar(UpdateCvarRequest) returns (Cvar) {}
 }

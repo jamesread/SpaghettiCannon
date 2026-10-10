@@ -2,60 +2,94 @@ package api
 
 import (
 	"context"
-	"github.com/jamesread/SpaghettiCannon/internal/buildinfo"
-	"github.com/jamesread/SpaghettiCannon/internal/config"
-	log "github.com/sirupsen/logrus"
-
+	"database/sql"
 	"fmt"
 
 	"connectrpc.com/connect"
-
-	gormv2logrus "github.com/thomas-tacquet/gormv2-logrus"
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
-	"gorm.io/gorm/logger"
+	_ "github.com/go-sql-driver/mysql"
+	log "github.com/sirupsen/logrus"
 
 	pb "github.com/jamesread/SpaghettiCannon/gen/SpaghettiCannon/clientapi/v1"
+	"github.com/jamesread/SpaghettiCannon/internal/buildinfo"
+	"github.com/jamesread/SpaghettiCannon/internal/config"
+	"github.com/jamesread/SpaghettiCannon/internal/store"
 )
 
 type SpaghettiCannonApiService struct {
-	cfg *config.Config
-	dsn string
-	db  *gorm.DB
+	cfg   *config.Config
+	store store.Store
 }
 
 func NewServer(cfg *config.Config) *SpaghettiCannonApiService {
-	api := &SpaghettiCannonApiService{
-		cfg: cfg,
-		dsn: fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?charset=utf8mb4&parseTime=True&loc=Local", cfg.Database.User, cfg.Database.Pass, cfg.Database.Host, cfg.Database.Port, cfg.Database.Name),
-		db:  nil,
+	api := &SpaghettiCannonApiService{cfg: cfg}
+
+	db, err := openDB(cfg)
+	if err != nil {
+		log.WithError(err).Fatal("database connection failed")
 	}
 
-	api.connectDB()
+	st := store.NewMySQL(db)
+	api.store = st
+
+	ctx := context.Background()
+	if err := assertMigration(ctx, st, config.RequiredMigration); err != nil {
+		log.Fatal(err)
+	}
+	logDatabaseMigration(ctx, st)
+	if err := ensureDefaultCvars(ctx, st, cfg); err != nil {
+		log.WithError(err).Fatal("cvars")
+	}
 
 	return api
 }
 
-func (api *SpaghettiCannonApiService) connectDB() {
-	gormLogger := gormv2logrus.NewGormlog(gormv2logrus.WithLogrus(log.New()))
-	gormLogger.LogMode(logger.Error)
+func openDB(cfg *config.Config) (*sql.DB, error) {
+	dsn := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?charset=utf8mb4&parseTime=True&loc=Local",
+		cfg.Database.User, cfg.Database.Pass, cfg.Database.Host, cfg.Database.Port, cfg.Database.Name)
 
-	gormConfig := &gorm.Config{
-		Logger:                 gormLogger,
-		CreateBatchSize:        1500,
-		SkipDefaultTransaction: true,
+	db, err := sql.Open("mysql", dsn)
+	if err != nil {
+		return nil, err
+	}
+	if err := db.Ping(); err != nil {
+		_ = db.Close()
+		return nil, err
 	}
 
-	db, err := gorm.Open(mysql.Open(api.dsn), gormConfig)
+	log.WithFields(log.Fields{
+		"name": cfg.Database.Name,
+		"host": cfg.Database.Host,
+	}).Infof("Connected to database")
 
-	if err == nil {
-		log.WithFields(log.Fields{
-			"name": api.cfg.Database.Name,
-			"host": api.cfg.Database.Host,
-		}).Infof("Connected to database")
+	return db, nil
+}
+
+func assertMigration(ctx context.Context, st store.Store, required string) error {
+	ok, err := st.HasMigration(ctx, required)
+	if err != nil {
+		return fmt.Errorf("connected to the database, but the migrations table could not be queried. run sql-migrate up: %w", err)
 	}
+	if ok {
+		return nil
+	}
+	latest, _ := st.LatestMigration(ctx)
+	display := latest
+	if display == "" {
+		display = "null"
+	}
+	return fmt.Errorf("requires database version %s but the database is at version %s; run database migrations", required, display)
+}
 
-	api.db = db
+func logDatabaseMigration(ctx context.Context, st store.Store) {
+	latest, err := st.LatestMigration(ctx)
+	if err != nil {
+		log.Warnf("Could not read current database migration: %v", err)
+		return
+	}
+	if latest == "" {
+		latest = "none"
+	}
+	log.Infof("Database migration: %s", latest)
 }
 
 func (api *SpaghettiCannonApiService) GetReadyz(ctx context.Context, req *connect.Request[pb.GetReadyzRequest]) (*connect.Response[pb.GetReadyzResponse], error) {
@@ -80,8 +114,26 @@ func (api *SpaghettiCannonApiService) AddUpdate(ctx context.Context, req *connec
 }
 
 func (api *SpaghettiCannonApiService) Init(ctx context.Context, req *connect.Request[pb.InitRequest]) (*connect.Response[pb.InitResponse], error) {
+	showVersion := api.showVersionNumber(ctx)
+	currentVersion := ""
+	availableVersion := ""
+	showNew := false
+
+	if showVersion {
+		currentVersion = buildinfo.Version
+		showNew = api.showNewVersions(ctx)
+		if showNew {
+			availableVersion = "none"
+		}
+	}
+
 	res := connect.NewResponse(&pb.InitResponse{
-		Version: buildinfo.Version,
+		ShowFooter:        api.showFooter(ctx),
+		ShowNewVersions:   showVersion && showNew,
+		AvailableVersion:  availableVersion,
+		CurrentVersion:    currentVersion,
+		PageTitle:         api.siteTitle(ctx),
+		ShowVersionNumber: showVersion,
 	})
 
 	log.Info("Init called")

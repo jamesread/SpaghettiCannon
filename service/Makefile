@@ -1,8 +1,13 @@
+default: compile
+
 cicd: go-tools compile unittests
 	rm SpaghettiCannon
 
 compile:
 	go build
+
+run: compile
+	./SpaghettiCannon
 
 codestyle:
 	go fmt ./...
@@ -22,3 +27,5 @@ go-tools:
 	go install "google.golang.org/grpc/cmd/protoc-gen-go-grpc"
 	go install "google.golang.org/protobuf/cmd/protoc-gen-go"
 	go install "connectrpc.com/connect/cmd/protoc-gen-connect-go"
+
+.PHONY: default cicd compile run codestyle unittests go-tools

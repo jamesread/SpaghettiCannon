@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { HomeIcon, WeightScaleIcon, HeartAddIcon } from '@hugeicons/core-free-icons'
+import { HomeIcon, WeightScaleIcon, HeartAddIcon, Settings01Icon } from '@hugeicons/core-free-icons'
 
 import Home from './resources/vue/views/Home.vue'
 
@@ -29,6 +29,15 @@ const routes = [
     meta: {
       title: 'Heart',
       icon: HeartAddIcon,
+    }
+  },
+  {
+    name: "settings",
+    path: '/admin/settings',
+    component: () => import('./resources/vue/views/SettingsAdmin.vue'),
+    meta: {
+      title: 'Settings',
+      icon: Settings01Icon,
     }
   },
 ]

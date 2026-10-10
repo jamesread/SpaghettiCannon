@@ -1,0 +1,53 @@
+= Database migrations
+
+SpaghettiCannon applies schema changes with https://github.com/rubenv/sql-migrate[sql-migrate]. Migrations run *outside* the Go process: on container start (entrypoint) or via `make` in development. At startup the service checks a compile-time required migration id and refuses to run if that version is missing.
+
+== Container start
+
+The image entrypoint runs `sql-migrate up` under `/var/app/database/$DB_DRIVER` (default `mysql`), then starts the service.
+
+Required environment variables for sql-migrate:
+
+|===
+| Variable | Description
+| `DB_HOST` | Database hostname
+| `DB_USER` | Database user (`DB_USERNAME` is accepted as an alias)
+| `DB_PASS` | Database password (`DB_PASSWORD` is accepted as an alias)
+| `DB_NAME` | Database name (`DB_DATABASE` is accepted as an alias)
+| `DB_DRIVER` | Optional. One of `mysql` (default), `pgsql`, or `sqlite`. Only MySQL migrations ship today.
+|===
+
+These are separate from `config.yaml` `database.*` keys. Keep them aligned so migrate and the service use the same database.
+
+== Development
+
+From the repo root (with the same `DB_*` env vars set):
+
+[source,bash]
+----
+make migrate
+# or
+make -C database/mysql
+----
+
+Useful targets in `database/mysql/`:
+
+* `make` / `make default` — `sql-migrate up`
+* `make status` — show applied migrations
+* `make down` — roll back one migration
+
+== Manual (running container)
+
+[source,bash]
+----
+docker exec -it SpaghettiCannon /bin/sh
+cd /var/app/database/mysql
+sql-migrate up
+sql-migrate status
+----
+
+== Required migration
+
+Current required migration id: `1.cvars.sql` (creates the `cvars` table for Settings / Init UI knobs).
+
+The binary constant is `config.RequiredMigration`. Bump it in the same change that adds a migration the service depends on. If the id is missing, startup fails with the required vs latest applied version and tells you to run migrations.

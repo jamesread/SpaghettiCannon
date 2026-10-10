@@ -9,37 +9,29 @@ import { SpaghettiCannonApiService } from "./ts/proto/SpaghettiCannon/clientapi/
 import { createApp } from 'vue'
 import router from './router'
 import App from './App.vue'
+import { loadInit } from './resources/vue/composables/useInit.js'
 
 async function main (): Promise<void> {
-  document.querySelector('#history').appendChild(createGraph())
-
-  const app = createApp(App)
-  app.use(router)
-  app.mount('#app')
+  const history = document.querySelector('#history')
+  if (history) {
+    history.appendChild(createGraph())
+  }
 
   const transport = createConnectTransport({
-    baseUrl: window.location.href + 'api/',
+    baseUrl: window.location.origin + '/api/',
   })
 
   window.client = createClient(SpaghettiCannonApiService, transport)
 
-  await init()
-}
-
-async function init (): Promise<void> {
   try {
-    const response = await window.client.init({})
-    const versionElement = document.getElementById('version')
-    if (versionElement) {
-      versionElement.textContent = response.version
-    }
-  } catch (error) {
-    console.error('Failed to initialize:', error)
-    const versionElement = document.getElementById('version')
-    if (versionElement) {
-      versionElement.textContent = 'error'
-    }
+    await loadInit()
+  } catch {
+    // App still mounts; footer/settings use defaults until Init succeeds.
   }
+
+  const app = createApp(App)
+  app.use(router)
+  app.mount('#app')
 }
 
 function createGraph (): Node {

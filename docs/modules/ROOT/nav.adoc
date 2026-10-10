@@ -2,5 +2,6 @@
 * Installation Guide
 ** xref:install/docker-compose.adoc[Docker Compose]
 ** xref:install/docker-standalone.adoc[Docker (Standalone)]
+** xref:install/migrations.adoc[Database migrations]
 * xref:config/index.adoc[Configuration]
 * xref:support.adoc[Support]

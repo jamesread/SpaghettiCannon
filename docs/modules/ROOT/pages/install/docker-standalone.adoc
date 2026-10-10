@@ -1,13 +1,21 @@
 = Docker (standalone)
 
+Set `DB_*` so the entrypoint can apply migrations, and point `config.yaml` `database.*` at the same MySQL instance.
+
 .Bash
 [source,bash]
 ----
 docker pull ghcr.io/jamesread/spaghetticannon:latest
 docker create \
   --name SpaghettiCannon \
+  -e DB_HOST=mariadb \
+  -e DB_USER=spaghetticannon \
+  -e DB_PASS=password \
+  -e DB_NAME=spaghetticannon \
   -v spaghetticannon-config:/config \
-  -p 4337:4337 \
+  -p 8080:8080 \
   --restart unless-stopped \
   ghcr.io/jamesread/spaghetticannon:latest
----
+----
+
+See xref:install/migrations.adoc[Database migrations].
